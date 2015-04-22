@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="contacts">
+<head>
+	<title>Contacts</title>
+
+	<link rel="stylesheet" href="lib/bootstrap.css">
+	<link rel="stylesheet" href="lib/toastr.css">
+	<script src="lib/jquery-2.1.3.js"></script>
+	<script src="lib/toastr.js"></script>
+	<script src="lib/angular.js"></script>
+	<script src="lib/angular-route.js"></script>
+</head>
+<body>
+<!--templates-->
+<script type="text/ng-template" id="contactHTML">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Organization</th>
+				<th>Email</th>
+				<th>Phone</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr high-light="contact.org" ng-repeat="contact in contacts | filter:searchTerm | orderBy:'last'">
+				<td>{{contact.first}}</td>
+				<td>{{contact.last}}</td>
+				<td>{{contact.org}}</td>
+				<td>{{contact.email}}</td>
+				<td>{{contact.phone}}</td>
+			</tr>
+		</tbody>
+	</table>
+</script>
+
+<script type="text/ng-template" id="contactsHTML">
+	<h2>
+		Contacts
+		<small>
+			{{usc}} of {{contacts.length}} are from USC.
+			<span ng-if="usc">
+				Fight On!
+			<span>
+		</small>
+	</h2>
+	<div class="row">
+
+		<div class="col-md-8">
+			<div class="form-group">
+				<input ng-model="searchTerm" type="text" class="form-control">
+			</div>
+			<contact-table></contact-table>
+		</div>
+
+		<div class="col-md-4">
+			<form role="form" ng-submit="addContact()">
+				<div class="form-group">
+					<label>First Name</label>
+					<input ng-model="first" type="text" required class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Last Name</label>
+					<input ng-model="last" type="text" required class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Organization</label>
+					<input ng-model="org" type="text" required class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Email</label>
+					<input ng-model="email" type="email" required class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Phone</label>
+					<input ng-model="phone" type="tel" required class="form-control">
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Add Contact">
+				</div>
+			</form>
+		<div>
+
+	</div><!--.row-->
+</script>
+
+<script type="text/ng-template" id="notesHTML">
+	<h2>Notes</h2>
+	<ul>
+		<li>notes.....</li>
+		<li>notes.....</li>
+		<li>notes.....</li>
+		<li>notes.....</li>
+		<li>notes.....</li>
+	</ul>
+</script>
+
+<!--nav-->
+<nav class="container">
+	<ul class="nav nav-pills nav-justified">
+		<li><a href="#/contacts">Contacts</a></li>
+		<li><a href="#/notes">Notes</a></li>
+	</ul>
+</nav>
+
+<!--app-->
+<div class="container" ng-view></div><!--.container-->
+
+<script src="app.js"></script>
+</body>
+</html>
